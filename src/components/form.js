@@ -3,6 +3,7 @@ import React from "react";
 import "../style.css"; // navigate back to style.css
 // import ModalApp from "./modal";
 import AppModal from "./modal";
+// import Card from "./components/card";
 
 // learn about form!!!
 
@@ -17,13 +18,22 @@ class Form extends React.Component {
       author: "",
       pages: "",
       read: 0,
+      lib: [],
+      required: false,
     };
     // without this, error message is ConstantSourceNode
     // TypeError: this.setState is not a function
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    // this.warningHandle = this.warningHandle.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
   // how to handle change, watch Youtube
+
+  // warningHandle(warning_state) {
+  //   this.setState({ required: !warning_state });
+  // }
 
   handleChange(e) {
     if (e.target.name == "title") {
@@ -34,34 +44,40 @@ class Form extends React.Component {
       this.setState({ pages: e.target.value });
     }
 
-    console.log("jsut chenaged", e.target.value);
+    console.log("jsut chenaged", e.target);
   }
 
-  // handleAuthorChange(e) {
-  //   if (e.target.value) {
-  //     console.log("jsut chenaged", e.target.value);
-  //     this.setState({ title: e.target.value });
-  //   }
-  // }
-
-  // handlePageChange(e) {
-  //   if (e.target.value) {
-  //     console.log("jsut chenaged", e.target.value);
-  //     this.setState({ title: e.target.value });
-  //   }
-  // }
-
   handleClick(e) {
-    e.preventDefault();
-    console.log("meow handleclick");
-    // if (book.title){
-    //   this.setState({
-    //   title: book.title,
-    //   author: book.author,
-    //   pages: book.pages,
-    //   read: book.read,
-    // })
-    // }
+    if (e && e.target.innerHTML == "Submit") {
+      // check if input is valid
+      if (
+        this.state.title !== "" &&
+        this.state.author !== "" &&
+        this.state.pages !== ""
+      ) {
+        const new_title = this.state.title;
+        const new_author = this.state.author;
+        const new_pages = this.state.pages;
+        const new_book = {
+          new_title,
+          new_author,
+          new_pages,
+        };
+
+        const updated_library = this.state.lib.slice();
+        updated_library.push(new_book);
+        this.setState({
+          lib: updated_library,
+        });
+        // <Card value={this.state.lib}/>
+        console.log(this, "this shown");
+        this.setState({ required: false });
+        console.log("valid /////////////");
+      } else {
+        this.setState({ required: true });
+        console.log("invalid /////////////////");
+      }
+    }
   }
 
   render() {
@@ -72,7 +88,11 @@ class Form extends React.Component {
           <p>Modal</p>
           <p>Data</p>
         </ModalApp> */}
-        <AppModal value={this.state} onClick={this.handleChange} />
+        <AppModal
+          value={this.state}
+          onChange={this.handleChange}
+          onClick={this.handleClick}
+        />
         {/* <button type="button" onClick={this.showModal}>
           open
         </button> */}

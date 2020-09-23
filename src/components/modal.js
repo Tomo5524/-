@@ -6,19 +6,15 @@ import Button from "react-bootstrap/Button";
 function MyVerticallyCenteredModal(props) {
   console.log(props, "in vercenter");
 
-  // const checkInput = (book) => {
-  //   // input check
-  //   console.log("meow checkInput");
-  // };
-
   return (
+    // console.log('return executed')
     <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className="btn">
         <Modal.Title id="contained-modal-title-vcenter">
           Add a new book
         </Modal.Title>
@@ -26,55 +22,70 @@ function MyVerticallyCenteredModal(props) {
       <Modal.Body>
         {/* create input to get book object here */}
         <form>
-          <div>
+          <div className="py-2">
             <input
               type="text"
               name="title"
               placeholder="Bookname"
               onChange={(e) => {
-                props.onClick(e);
+                props.onChange(e);
               }}
             />
           </div>
-          <div>
+          <div className="py-2">
             <input
               type="text"
               name="author"
               placeholder="Author name"
               onChange={(e) => {
-                props.onClick(e);
+                props.onChange(e);
               }}
             />
           </div>
-          <div>
+          <div className="py-2">
             <input
               type="number"
               name="pages"
               placeholder="Pages"
               onChange={(e) => {
-                props.onClick(e);
+                props.onChange(e);
               }}
             />
           </div>
-          <div>
+          <div className="py-2">
             <input
               type="radio"
               id="read"
               name="read"
               value="read"
               onChange={(e) => {
-                props.onClick(e);
+                props.onChange(e);
               }}
             />
           </div>
         </form>
       </Modal.Body>
       <Modal.Footer>
+        <h5 className="flex-grow-1 text-danger">
+          {props.value.required ? "All fields must be required" : ""}
+        </h5>
         <Button
+          // onClick={props.onHide}
           onClick={() => {
-            props.onHide();
-            props.onClick();
+            // props.onClick();
+            if (
+              props.value.title !== "" &&
+              props.value.author !== "" &&
+              props.value.pages !== ""
+            ) {
+              console.log(props.value.required, "props.value.required ///");
+              props.onHide();
+            }
           }}
+          // onChange={(e) => {
+          //   props.onChange(e);
+          // }}
+          // onClick={props.onCLick}
         >
           Submit
         </Button>
@@ -86,7 +97,7 @@ function MyVerticallyCenteredModal(props) {
 
 function AppModal(props) {
   const [modalShow, setModalShow] = React.useState(false);
-  console.log(props);
+  console.log(props, "in Appmodal");
   // const func = props.onClick;
 
   // when calling a couple of fucntions onClick,
@@ -104,10 +115,15 @@ function AppModal(props) {
       </Button>
 
       <MyVerticallyCenteredModal
+        value={props.value}
         show={modalShow}
         onHide={() => setModalShow(false)}
-        // onClick={handleClickModal}
+        onChange={props.onChange}
         onClick={props.onClick}
+        // onClick={() => {
+        //   // props.onClick();
+        //   props.onChange()
+        // }}
       />
     </>
   );
