@@ -1,19 +1,19 @@
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import "./style.css";
+import React from "react";
+import DisplayBook from "./books";
 
-// class Card extends React.Component {
+class Card extends React.Component {
+  render() {
+    console.log(this.props, "props in Card///");
+    const books = this.props.value.lib.map((book) => (
+      <DisplayBook
+        changeHandle={this.props.changeHandle}
+        key={book.id}
+        book={book}
+      />
+    ));
 
-//     render() {
+    return <div className="d-flex">{books}</div>;
+  }
+}
 
-//         const books = props.books.map((book) => (
-//             <DisplayBook key={book.id} pro={book} />
-//           ));
-
-//       return (
-//         <div></div>
-//       );
-//     }
-//   }
-
-//   export default Card;
+export default Card;

@@ -62,6 +62,19 @@ function MyVerticallyCenteredModal(props) {
                 props.onChange(e);
               }}
             />
+            <label htmlFor="read" className="mr-2">
+              Read
+            </label>
+            <input
+              type="radio"
+              id="not-read"
+              name="read"
+              value="not-read"
+              onChange={(e) => {
+                props.onChange(e);
+              }}
+            />
+            <label htmlFor="not-read">Not Read yet</label>
           </div>
         </form>
       </Modal.Body>
@@ -76,7 +89,8 @@ function MyVerticallyCenteredModal(props) {
             if (
               props.value.title !== "" &&
               props.value.author !== "" &&
-              props.value.pages !== ""
+              props.value.pages !== "" &&
+              props.value.read !== ""
             ) {
               console.log(props.value.required, "props.value.required ///");
               props.onHide();

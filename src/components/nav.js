@@ -9,10 +9,15 @@ class Nav extends React.Component {
   // }
 
   render() {
+    console.log(this.props, "props in Nav");
     return (
       <div className="nav justify-content-between align-items-center">
         <h1>Welcome to your own Library</h1>
-        <Form />
+        <Form
+          value={this.props.value}
+          onChange={this.props.onChange}
+          onClick={this.props.onClick}
+        />
         {/* <button onClick={this.handleClick}>click me!</button> */}
       </div>
     );
