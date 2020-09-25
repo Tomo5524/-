@@ -7,12 +7,13 @@ class Card extends React.Component {
     const books = this.props.value.lib.map((book) => (
       <DisplayBook
         changeHandle={this.props.changeHandle}
+        changeToggle={this.props.changeToggle}
         key={book.id}
         book={book}
       />
     ));
 
-    return <div className="d-flex">{books}</div>;
+    return <div className="d-flex flex-wrap">{books}</div>;
   }
 }
 

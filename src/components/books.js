@@ -4,7 +4,7 @@ import "font-awesome/css/font-awesome.min.css";
 function DisplayBook(props) {
   console.log(props, "props in display book ///////////////");
   return (
-    <div className="m-2 p-5 bg-secondary">
+    <div className="m-2 p-5 bg-white radius">
       <div className="d-flex  justify-content-between w-100">
         <h2>Title: {props.book.title}</h2>
         <button
@@ -16,7 +16,16 @@ function DisplayBook(props) {
       </div>
       <p>Author: {props.book.author}</p>
       <p>Pages: {props.book.pages}</p>
-      <p>Read: {props.book.read}</p>
+      <button
+        onClick={() => {
+          props.changeToggle(props.book);
+        }}
+        className={
+          props.book.read == "Read" ? "btn btn-success" : "btn btn-danger"
+        }
+      >
+        {props.book.read == "Read" ? "Read" : "Not Read"}
+      </button>
     </div>
   );
 }

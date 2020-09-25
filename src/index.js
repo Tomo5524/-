@@ -32,6 +32,8 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.deleteHandle = this.deleteHandle.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.resetCurrentState = this.resetCurrentState.bind(this);
     // this.handleChange = this.handleChange.bind(this);
   }
 
@@ -50,9 +52,9 @@ class App extends React.Component {
     } else if (e.target.name == "pages") {
       this.setState({ pages: e.target.value });
     } else if (e.target.value == "read") {
-      this.setState({ read: "read" });
+      this.setState({ read: "Read" });
     } else if (e.target.value == "not-read") {
-      this.setState({ read: "not read" });
+      this.setState({ read: "Not Read" });
     }
   }
 
@@ -86,6 +88,9 @@ class App extends React.Component {
         // <Card value={this.state.lib}/>
         this.setState({ required: false });
         console.log("valid /////////////");
+        //// reset current state so empty input does not go through validation
+        /// EDGE CASE
+        this.resetCurrentState();
       } else {
         this.setState({ required: true });
         console.log("invalid /////////////////");
@@ -99,6 +104,49 @@ class App extends React.Component {
     this.setState({ lib: new_books });
   }
 
+  handleToggle(cur_book) {
+    console.log(cur_book, "cur_book /////");
+    let changed_state = cur_book.read == "Read" ? "Not Read" : "Read";
+    console.log(changed_state, "changed_state /////");
+    // also update libraby
+    // https://stackoverflow.com/questions/49627157/update-the-attribute-value-of-an-object-using-the-map-function-in-es6
+    // how to edit one spefic object out of array
+    const editBooks = this.state.lib.map((item) => {
+      // create new object for item
+      var temp = Object.assign({}, item);
+      if (item.id === cur_book.id) {
+        temp.read = changed_state;
+        console.log(temp, "temp//////");
+      }
+      return temp;
+    });
+
+    console.log(editBooks, "editBooks /////");
+    this.setState({ lib: editBooks });
+    console.log(this.state.lib, "this.state.lib /////");
+
+    //   this.state.lib.forEach(function (book) {
+    //     if(book.id === cur_book.id){
+    //       this.setState({ read: changed_state });
+    //     }
+    // });
+
+    //   console.log(this.state.read, "this.state.read /////");
+    //   console.log(this.state.lib, "this.state.lib /////");
+  }
+
+  resetCurrentState() {
+    this.setState({
+      title: "",
+      author: "",
+      pages: "",
+      read: "",
+      required: false,
+    });
+    console.log(this.state, "this.state after reset /////");
+    // state still remains in above line but state has been changed
+  }
+
   render() {
     return (
       <div className="container">
@@ -107,7 +155,11 @@ class App extends React.Component {
           onChange={this.handleChange}
           onClick={this.handleClick}
         />
-        <Card value={this.state} changeHandle={this.deleteHandle} />
+        <Card
+          value={this.state}
+          changeHandle={this.deleteHandle}
+          changeToggle={this.handleToggle}
+        />
       </div>
     );
   }

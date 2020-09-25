@@ -11,7 +11,7 @@ class Nav extends React.Component {
   render() {
     console.log(this.props, "props in Nav");
     return (
-      <div className="nav justify-content-between align-items-center">
+      <div className="d-flex justify-content-between align-items-center bg-white p-4 radius">
         <h1>Welcome to your own Library</h1>
         <Form
           value={this.props.value}

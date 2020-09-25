@@ -14,8 +14,11 @@ function MyVerticallyCenteredModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton className="btn">
+      <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
+          {/* when modal is open, reset all the inputs  */}
+          {/* e.g. when toggling read state, state remains changed and form vaildation goes through without specifying read state since it still remains changed from previous state */}
+          {/* ////////////////////////////////////////////////// */}
           Add a new book
         </Modal.Title>
       </Modal.Header>
@@ -85,7 +88,8 @@ function MyVerticallyCenteredModal(props) {
         <Button
           // onClick={props.onHide}
           onClick={() => {
-            // props.onClick();
+            //////// no need to call handleclick here because no matter where you click within the box of Modal, click fires and so does handleclick function.
+            // just check what it was clicked which is handled in handleClick function
             if (
               props.value.title !== "" &&
               props.value.author !== "" &&
@@ -144,88 +148,3 @@ function AppModal(props) {
 }
 
 export default AppModal;
-
-////////////////////////////////////////
-
-// function EXample() {
-//   const [show, setShow] = useState(false);
-
-//   const handleClose = () => setShow(false);
-//   const handleShow = () => setShow(true);
-
-//   return (
-//     <div>
-//       <Button variant="primary" onClick={handleShow}>
-//         Launch demo modal
-//       </Button>
-
-//       <Modal show={show} onHide={handleClose}>
-//         <Modal.Header closeButton>
-//           <Modal.Title>Modal heading</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-//         <Modal.Footer>
-//           <Button variant="secondary" onClick={handleClose}>
-//             Close
-//           </Button>
-//           <Button variant="primary" onClick={handleClose}>
-//             Save Changes
-//           </Button>
-//         </Modal.Footer>
-//       </Modal>
-//     </div>
-//   );
-// }
-
-// export default EXample;
-
-/////////////////////////////////
-
-// function MyVerticallyCenteredModal(props) {
-//   return (
-//     <Modal
-//       {...props}
-//       size="lg"
-//       aria-labelledby="contained-modal-title-vcenter"
-//       centered
-//     >
-//       <Modal.Header closeButton>
-//         <Modal.Title id="contained-modal-title-vcenter">
-//           Modal heading
-//         </Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         <h4>Centered Modal</h4>
-//         <p>
-//           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-//           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-//           consectetur ac, vestibulum at eros.
-//         </p>
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <Button onClick={props.onHide}>Close</Button>
-//       </Modal.Footer>
-//     </Modal>
-//   );
-// }
-
-// function ModalApp() {
-//   const [modalShow, setModalShow] = React.useState(false);
-
-//   return (
-//     <>
-//       <Button variant="primary" onClick={() => setModalShow(true)}>
-//         Launch vertically centered modal
-//       </Button>
-
-//       <MyVerticallyCenteredModal
-//         show={modalShow}
-//         onHide={() => setModalShow(false)}
-//       />
-//     </>
-//   );
-// }
-
-// // render(<ModalApp />);
-
-// export default ModalApp;
