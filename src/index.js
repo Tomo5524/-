@@ -15,8 +15,10 @@ import ReactDOM from "react-dom";
 import "./style.css";
 import Nav from "./components/nav";
 import Card from "./components/card";
+// import setLocalStorage from "./components/localstorage";
 
 class App extends React.Component {
+  // change this class to function
   constructor() {
     super();
     this.state = {
@@ -91,6 +93,11 @@ class App extends React.Component {
         //// reset current state so empty input does not go through validation
         /// EDGE CASE
         this.resetCurrentState();
+        // add a new book to localstorage
+        localStorage.setItem(
+          JSON.stringify(new_book.id),
+          JSON.stringify(new_book)
+        );
       } else {
         this.setState({ required: true });
         console.log("invalid /////////////////");
@@ -102,6 +109,7 @@ class App extends React.Component {
   deleteHandle(given_id) {
     const new_books = this.state.lib.filter((book) => book.id !== given_id);
     this.setState({ lib: new_books });
+    localStorage.removeItem(JSON.stringify(given_id));
   }
 
   handleToggle(cur_book) {
@@ -146,6 +154,27 @@ class App extends React.Component {
     console.log(this.state, "this.state after reset /////");
     // state still remains in above line but state has been changed
   }
+
+  // how to excute this only once right afer the program executed
+  // setLocalStorage.renderEachBookFromLocalStorage()
+  // Google best practice for react localstorage
+  // setLocalstorage() {
+  //   let new_books = [];
+  //   Object.keys(localStorage).forEach(function (id) {
+  //     // id is key
+  //     console.log(id, "id in localstorage render each book");
+  //     let desirialize_id = JSON.parse(id);
+  //     let book = localStorage.getItem(desirialize_id);
+  //     console.log(JSON.parse(book), "book render in index.js");
+  //     new_books.push(JSON.parse(book));
+  //   });
+  //   return new_books;
+  // };
+  // if (localStorage.length > 0) {
+  //   console.log(this.state.lib, "this.state.lib after updated in new lib");
+  //   let new_books = {()=> savedLibrary};
+  //   this.setState({ lib: new_books });
+  // }
 
   render() {
     return (
