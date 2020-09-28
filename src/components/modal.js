@@ -60,7 +60,7 @@ function MyVerticallyCenteredModal(props) {
               type="radio"
               id="read"
               name="read"
-              value="read"
+              value="Read"
               onChange={(e) => {
                 props.onChange(e);
               }}
@@ -72,7 +72,7 @@ function MyVerticallyCenteredModal(props) {
               type="radio"
               id="not-read"
               name="read"
-              value="not-read"
+              value="Unread"
               onChange={(e) => {
                 props.onChange(e);
               }}

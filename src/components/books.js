@@ -24,7 +24,7 @@ function DisplayBook(props) {
           props.book.read == "Read" ? "btn btn-success" : "btn btn-danger"
         }
       >
-        {props.book.read == "Read" ? "Read" : "Not Read"}
+        {props.book.read == "Read" ? "Read" : "Unread"}
       </button>
     </div>
   );
